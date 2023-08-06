@@ -15,8 +15,8 @@ const radioSchema = new Schema(
   }
 );
 
-const Radio = mongoose.model("Radio", radioSchema);
-export { Radio };
+const RadioModel = mongoose.model("Radio", radioSchema);
+export { RadioModel };
 
 // radio example
 // const radio = {

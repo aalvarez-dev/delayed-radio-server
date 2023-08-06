@@ -17,8 +17,8 @@ const stationSchema = new Schema(
   }
 );
 
-const Station = mongoose.model("Station", stationSchema);
-export { Station };
+const StationModel = mongoose.model("Station", stationSchema);
+export { StationModel };
 
 // station example
 // const station = {

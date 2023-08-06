@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
@@ -20,4 +20,4 @@ router.put("/api/countries/:countryID", updateCountry);
 
 router.delete("/api/countries/:countryID", deleteCountry);
 
-export { router }
+export { router as countriesRoutes };

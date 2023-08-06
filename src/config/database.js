@@ -3,8 +3,10 @@ const MongoClient = mongodb.MongoClient;
 
 const connectToDatabase = async () => {
   try {
-    const url = process.env.MONGO_URI;
-    const client = await MongoClient.connect(url, { useUnifiedTopology: true });
+    const mongodbUrl = process.env.MONGO_URI;
+    const client = await MongoClient.connect(mongodbUrl, {
+      useUnifiedTopology: true,
+    });
     console.log(`Sucessfully connected to the database`.green);
     return client.db();
   } catch (error) {

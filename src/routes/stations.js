@@ -1,10 +1,10 @@
-const express = require("express");
+import express from "express";
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
 const {
   getStations,
-  getStationsByRadio,
+  // getStationsByRadio,
   getStation,
   createStation,
   updateStation,
@@ -13,7 +13,7 @@ const {
 
 router.get("/api/stations/", getStations);
 
-router.get("/api/:radioID/stations/", getStationsByRadio);
+// router.get("/api/:radioID/stations/", getStationsByRadio);
 
 router.get("/api/station/:stationID", getStation);
 
@@ -23,4 +23,4 @@ router.put("/api/station/:stationID", updateStation);
 
 router.delete("/api/station/:stationID", deleteStation);
 
-export { router };
+export { router as stationsRoutes };
