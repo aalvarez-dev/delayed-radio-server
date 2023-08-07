@@ -1,8 +1,6 @@
-import * as mongoose from "mongoose";
+import mongoose from "../config/database.js";
 
-const Schema = mongoose.Schema;
-
-const countrySchema = new Schema(
+const countrySchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     countryCode: { type: String, required: true },

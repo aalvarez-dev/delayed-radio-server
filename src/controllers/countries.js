@@ -1,4 +1,4 @@
-import CountryModel from "../models/country";
+import { CountryModel } from "../models/country.js";
 
 const getCountries = async (req, res) => {
   try {
@@ -49,7 +49,7 @@ const getCountries = async (req, res) => {
 //   res.status(200).json("Product deleted");
 // };
 
-module.exports = {
+export {
   getCountries,
   // getCountry,
   // createCountry,

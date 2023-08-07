@@ -2,25 +2,25 @@ import express from "express";
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-const {
+import {
   getRadios,
   getRadio,
   // getRadioByStation,
   createRadio,
   updateRadio,
   deleteRadio,
-} = require("../controllers/radios.js");
+} from "../controllers/radios.js";
 
-router.get("/api/radios/", getRadios);
+router.get("/", getRadios);
 
-router.get("/api/radios/:radioID", getRadio);
+router.get("/:radioID", getRadio);
 
 // router.get("/api/:stationID/radio", getRadioByStation);
 
-router.post("/api/radios/", createRadio);
+router.post("/", createRadio);
 
-router.put("/api/radios/:radioID", updateRadio);
+router.put("/:radioID", updateRadio);
 
-router.delete("/api/radios/:radioID", deleteRadio);
+router.delete("/:radioID", deleteRadio);
 
-export { router as radiosRoutes };
+export default router;

@@ -1,18 +1,22 @@
-import * as mongodb from "mongodb";
-const MongoClient = mongodb.MongoClient;
+// Load environment variables from .env file
+import dotenv from "dotenv";
+dotenv.config();
 
-const connectToDatabase = async () => {
-  try {
-    const mongodbUrl = process.env.MONGO_URI;
-    const client = await MongoClient.connect(mongodbUrl, {
-      useUnifiedTopology: true,
-    });
+import mongoose from "mongoose";
+
+// mongoose.set("debug", true);
+
+const mongoUrl = process.env.MONGO_URI;
+mongoose
+  .connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
     console.log(`Sucessfully connected to the database`.green);
-    return client.db();
-  } catch (error) {
+  })
+  .catch((error) => {
     console.error(`Error connecting to the database: ${error}`.red);
-    throw error;
-  }
-};
+  });
 
-export { connectToDatabase };
+export default mongoose;

@@ -5,20 +5,16 @@ dotenv.config();
 // To colorize the console output
 import * as colors from "colors";
 
-// Connect to the database
-import { connectToDatabase } from "./config/database.js";
-const db = await connectToDatabase();
-
 // Import the main router
 import express from "express";
 const app = express();
-import { routes } from "./routes/index.js";
+import routes from "./routes/index.js";
 
 // Middleware to parse incoming JSON data
 app.use(express.json());
 
 // Use the main router
-app.use("/api", routes);
+app.use("/", routes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

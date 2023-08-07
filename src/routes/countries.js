@@ -2,22 +2,22 @@ import express from "express";
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
-const {
+import {
   getCountries,
-  getCountry,
-  createCountry,
-  updateCountry,
-  deleteCountry,
-} = require("../controllers/countries.js");
+  // getCountry,
+  // createCountry,
+  // updateCountry,
+  // deleteCountry,
+} from "../controllers/countries.js";
 
-router.get("/api/countries/", getCountries);
+router.get("/", getCountries);
 
-router.get("/api/countries/:countryID", getCountry);
+// router.get("/:countryID", getCountry);
 
-router.post("/api/countries/", createCountry);
+// router.post("/", createCountry);
 
-router.put("/api/countries/:countryID", updateCountry);
+// router.put("/:countryID", updateCountry);
 
-router.delete("/api/countries/:countryID", deleteCountry);
+// router.delete("/:countryID", deleteCountry);
 
-export { router as countriesRoutes };
+export default router;
