@@ -2,8 +2,8 @@ import express from "express";
 
 // Import routes from other files
 import countriesRoutes from "./countries.js";
-// import radiosRoutes from "./radios.js";
-// import stationsRoutes from "./stations.js";
+import radiosRoutes from "./radios.js";
+import stationsRoutes from "./stations.js";
 
 // eslint-disable-next-line new-cap
 const router = express.Router();
@@ -15,8 +15,8 @@ router.get("/api", (req, res) => {
 
 // Use user-related routes
 router.use("/api/countries", countriesRoutes);
-// router.use("/api/radios", radiosRoutes);
-// router.use("/api/stations", stationsRoutes);
+router.use("/api/radios", radiosRoutes);
+router.use("/api/stations", stationsRoutes);
 
 router.use((req, res, next) => {
   res.status(404).send("404 - Page not found");

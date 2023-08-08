@@ -4,7 +4,7 @@ const router = express.Router();
 
 import {
   getStations,
-  // getStationsByRadio,
+  getStationsByRadio,
   getStation,
   createStation,
   updateStation,
@@ -13,14 +13,14 @@ import {
 
 router.get("/", getStations);
 
-// router.get("/api/:radioID/stations/", getStationsByRadio);
+router.get("/radio/:radioId", getStationsByRadio);
 
-router.get("/:stationID", getStation);
+router.get("/:id", getStation);
 
-router.post("/", createStation);
+router.post("/radio/:radioId", createStation);
 
-router.put("/:stationID", updateStation);
+router.put("/:id", updateStation);
 
-router.delete("/:stationID", deleteStation);
+router.delete("/:id", deleteStation);
 
 export default router;
