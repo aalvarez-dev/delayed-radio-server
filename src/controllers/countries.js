@@ -9,50 +9,56 @@ const getCountries = async (req, res) => {
   }
 };
 
-// const getProduct = (req, res) => {
-//   const id = Number(req.params.productID);
-//   const product = products.find((product) => product.id === id);
+const getCountry = async (req, res) => {
+  try {
+    const country = await CountryModel.findById(req.params.id);
+    if (!country) return res.status(404).json({ error: "Country not found" });
+    res.json(country);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch country" });
+  }
+};
 
-//   if (!product) {
-//     return res.status(404).send("Product not found");
-//   }
-//   res.json(product);
-// };
+const createCountry = async (req, res) => {
+  try {
+    const country = new CountryModel(req.body);
+    await country.save();
+    res.status(201).json(country);
+  } catch (error) {
+    res.status(400).json({ error: "Failed to create country" });
+  }
+};
 
-// const createProduct = (req, res) => {
-//   const newProduct = {
-//     id: products.length + 1,
-//     name: req.body.name,
-//     price: req.body.price,
-//   };
-//   products.push(newProduct);
-//   res.status(201).json(newProduct);
-// };
+const updateCountry = async (req, res) => {
+  try {
+    const updatedCountry = await CountryModel.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    if (!updatedCountry)
+      return res.status(404).json({ error: "Country not found" });
+    res.json(updatedCountry);
+  } catch (error) {
+    res.status(400).json({ error: "Failed to update country" });
+  }
+};
 
-// const updateProduct = (req, res) => {
-//   const id = Number(req.params.productID);
-//   const index = products.findIndex((product) => product.id === id);
-//   const updatedProduct = {
-//     id: products[index].id,
-//     name: req.body.name,
-//     price: req.body.price,
-//   };
-
-//   products[index] = updatedProduct;
-//   res.status(200).json("Product updated");
-// };
-
-// const deleteProduct = (req, res) => {
-//   const id = Number(req.params.productID);
-//   const index = products.findIndex((product) => product.id === id);
-//   products.splice(index, 1);
-//   res.status(200).json("Product deleted");
-// };
+const deleteCountry = async (req, res) => {
+  try {
+    const deletedCountry = await CountryModel.findByIdAndDelete(req.params.id);
+    if (!deletedCountry)
+      return res.status(404).json({ error: "Country not found" });
+    res.json({ message: "Country deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete country" });
+  }
+};
 
 export {
   getCountries,
-  // getCountry,
-  // createCountry,
-  // updateCountry,
-  // deleteCountry,
+  getCountry,
+  createCountry,
+  updateCountry,
+  deleteCountry,
 };

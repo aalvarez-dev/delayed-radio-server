@@ -16,13 +16,3 @@ const countrySchema = new mongoose.Schema(
 
 const CountryModel = mongoose.model("Country", countrySchema);
 export { CountryModel };
-
-// // country example
-// const country = {
-//   name: "España",
-//   countryCode: "ES",
-//   location: {
-//     latitude: 40.416775,
-//     longitude: -3.70379,
-//   },
-// };

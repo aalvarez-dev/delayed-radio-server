@@ -4,20 +4,20 @@ const router = express.Router();
 
 import {
   getCountries,
-  // getCountry,
-  // createCountry,
-  // updateCountry,
-  // deleteCountry,
+  getCountry,
+  createCountry,
+  updateCountry,
+  deleteCountry,
 } from "../controllers/countries.js";
 
 router.get("/", getCountries);
 
-// router.get("/:countryID", getCountry);
+router.get("/:id", getCountry);
 
-// router.post("/", createCountry);
+router.post("/", createCountry);
 
-// router.put("/:countryID", updateCountry);
+router.put("/:id", updateCountry);
 
-// router.delete("/:countryID", deleteCountry);
+router.delete("/:id", deleteCountry);
 
 export default router;
