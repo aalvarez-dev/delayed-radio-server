@@ -19,7 +19,7 @@ router.use("/api/radios", radiosRoutes);
 router.use("/api/stations", stationsRoutes);
 
 router.use((req, res, next) => {
-  res.status(404).send("404 - Page not found");
+  res.status(404).send("404 | Page not found");
 });
 
 export default router;

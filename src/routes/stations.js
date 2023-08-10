@@ -9,7 +9,7 @@ import {
   createStation,
   updateStation,
   deleteStation,
-} from "../controllers/radios.js";
+} from "../controllers/stations.js";
 
 router.get("/", getStations);
 

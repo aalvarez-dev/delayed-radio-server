@@ -3,8 +3,9 @@ import { RadioModel } from "../models/radio.js";
 
 const getStations = async (req, res) => {
   try {
-    const radios = await StationModel.find();
-    res.json(radios);
+    const radios = await RadioModel.find();
+    const stations = radios.map((radio) => radio.stations).flat();
+    res.json(stations);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -12,7 +13,13 @@ const getStations = async (req, res) => {
 
 const getStation = async (req, res) => {
   try {
-    const station = await StationModel.findById(req.params.id);
+    const radio = await RadioModel.findOne({
+      "stations._id": req.params.id,
+    });
+    if (!radio) return res.status(404).json({ error: "Station not found" });
+    const station = radio.stations.find(
+      (station) => station._id == req.params.id
+    );
     if (!station) return res.status(404).json({ error: "Station not found" });
     res.json(station);
   } catch (error) {
@@ -34,7 +41,6 @@ const createStation = async (req, res) => {
   try {
     const radio = await RadioModel.findById(req.params.radioId);
     if (!radio) return res.status(404).json({ error: "Radio not found" });
-
     const station = new StationModel(req.body);
     radio.stations.push(station);
     await radio.save();
@@ -47,13 +53,24 @@ const createStation = async (req, res) => {
 
 const updateStation = async (req, res) => {
   try {
-    const updatedStation = await StationModel.findByIdAndUpdate(
-      req.params.id,
-      req.body,
+    const updatedRadio = await RadioModel.findOneAndUpdate(
+      { "stations._id": req.params.id },
+      {
+        $set: {
+          "stations.$._id": req.body._id,
+          "stations.$.name": req.body.name,
+          "stations.$.url": req.body.url,
+          "stations.$.country": req.body.country,
+          "stations.$.location": req.body.location,
+        },
+      },
       { new: true }
     );
-    if (!updatedStation)
+    if (!updatedRadio)
       return res.status(404).json({ error: "Station not found" });
+    const updatedStation = updatedRadio.stations.find(
+      (station) => station._id == (req.body._id || req.params.id)
+    );
     res.json(updatedStation);
   } catch (error) {
     res.status(400).json({ error: "Failed to update station" });
@@ -62,8 +79,12 @@ const updateStation = async (req, res) => {
 
 const deleteStation = async (req, res) => {
   try {
-    const deletedStation = await StationModel.findByIdAndDelete(req.params.id);
-    if (!deletedStation)
+    const updatedRadio = await RadioModel.findOneAndUpdate(
+      { "stations._id": req.params.id },
+      { $pull: { stations: { _id: req.params.id } } },
+      { new: true }
+    );
+    if (!updatedRadio)
       return res.status(404).json({ error: "Station not found" });
     res.json({ message: "Station deleted successfully" });
   } catch (error) {

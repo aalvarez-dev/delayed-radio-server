@@ -1,15 +1,11 @@
 import mongoose from "../config/database.js";
-import { StationModel } from "./station.js";
+import { stationSchema } from "./station.js";
 
 const radioSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     logo: { type: String, required: true },
-    location: {
-      latitude: { type: Number, required: true },
-      longitude: { type: Number, required: true },
-    },
-    stations: [StationModel],
+    stations: [stationSchema],
   },
   {
     timestamps: true,
@@ -17,4 +13,4 @@ const radioSchema = new mongoose.Schema(
 );
 
 const RadioModel = mongoose.model("Radio", radioSchema);
-export { RadioModel };
+export { RadioModel, radioSchema };
