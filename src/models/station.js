@@ -1,19 +1,22 @@
-import mongoose from "../config/database.js";
+import { Schema, model } from "mongoose";
 
-const stationSchema = new mongoose.Schema(
+import { locationSchema } from "./location.js";
+
+const stationSchema = new Schema(
   {
-    name: { type: String, required: true },
-    url: { type: String, required: true },
-    country: { type: String, required: true },
-    location: {
-      latitude: { type: Number, required: true },
-      longitude: { type: Number, required: true },
+    name: { type: String, unique: true, required: [true, "Name is required"] },
+    url: { type: String, required: [true, "Url is required"] },
+    country: {
+      type: Schema.Types.ObjectId,
+      ref: "Country",
+      required: [true, "Country is required"],
     },
+    location: locationSchema,
   },
   {
     timestamps: true,
   }
 );
 
-const StationModel = mongoose.model("Station", stationSchema);
+const StationModel = model("Station", stationSchema);
 export { StationModel, stationSchema };

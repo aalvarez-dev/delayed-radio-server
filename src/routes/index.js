@@ -18,7 +18,7 @@ router.use("/api/countries", countriesRoutes);
 router.use("/api/radios", radiosRoutes);
 router.use("/api/stations", stationsRoutes);
 
-router.use((req, res, next) => {
+router.get("*", (req, res) => {
   res.status(404).send("404 | Page not found");
 });
 

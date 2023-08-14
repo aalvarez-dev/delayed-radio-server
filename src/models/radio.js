@@ -1,10 +1,11 @@
-import mongoose from "../config/database.js";
+import { Schema, model } from "mongoose";
+
 import { stationSchema } from "./station.js";
 
-const radioSchema = new mongoose.Schema(
+const radioSchema = new Schema(
   {
-    name: { type: String, required: true },
-    logo: { type: String, required: true },
+    name: { type: String, unique: true, required: [true, "Name is required"] },
+    logo: { type: String },
     stations: [stationSchema],
   },
   {
@@ -12,5 +13,5 @@ const radioSchema = new mongoose.Schema(
   }
 );
 
-const RadioModel = mongoose.model("Radio", radioSchema);
+const RadioModel = model("Radio", radioSchema);
 export { RadioModel, radioSchema };

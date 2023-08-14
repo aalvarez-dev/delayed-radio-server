@@ -6,17 +6,19 @@ import mongoose from "mongoose";
 
 // mongoose.set("debug", true);
 
-const mongoUrl = process.env.MONGO_URI;
-mongoose
-  .connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log(`Sucessfully connected to the database`.green);
-  })
-  .catch((error) => {
-    console.error(`Error connecting to the database: ${error}`.red);
-  });
+const connectToDatabase = async () => {
+  const mongoUrl = process.env.MONGO_URI;
+  mongoose
+    .connect(mongoUrl, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => {
+      console.log(`Sucessfully connected to the database`.green);
+    })
+    .catch((error) => {
+      console.error(`Error connecting to the database: ${error}`.red);
+    });
+};
 
-export default mongoose;
+export { connectToDatabase };

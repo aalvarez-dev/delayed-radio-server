@@ -1,18 +1,27 @@
-import mongoose from "../config/database.js";
+import { Schema, model } from "mongoose";
 
-const countrySchema = new mongoose.Schema(
+import { locationSchema } from "./location.js";
+
+const countryCodeRegexp = /^[A-Za-z]{2}$/;
+
+const countrySchema = new Schema(
   {
-    name: { type: String, required: true },
-    countryCode: { type: String, required: true },
-    location: {
-      latitude: { type: Number, required: true },
-      longitude: { type: Number, required: true },
+    name: { type: String, unique: true, required: [true, "Name is required"] },
+    countryCode: {
+      type: String,
+      unique: true,
+      validate: {
+        validator: (v) => countryCodeRegexp.test(v),
+        message: (props) => `${props.value} is not a valid country code!`,
+      },
+      required: [true, "Country code is required"],
     },
+    location: locationSchema,
   },
   {
     timestamps: true,
   }
 );
 
-const CountryModel = mongoose.model("Country", countrySchema);
+const CountryModel = model("Country", countrySchema);
 export { CountryModel, countrySchema };

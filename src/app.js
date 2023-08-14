@@ -10,6 +10,10 @@ import express from "express";
 const app = express();
 import routes from "./routes/index.js";
 
+// Import the database connection
+import { connectToDatabase } from "./config/database.js";
+const dbConnection = await connectToDatabase();
+
 // Middleware to parse incoming JSON data
 app.use(express.json());
 
