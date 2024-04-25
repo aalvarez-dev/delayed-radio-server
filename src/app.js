@@ -1,7 +1,3 @@
-// Load environment variables from .env file
-import dotenv from "dotenv";
-dotenv.config();
-
 // To colorize the console output
 import * as colors from "colors";
 
@@ -12,7 +8,13 @@ import routes from "./routes/index.js";
 
 // Import the database connection
 import { connectToDatabase } from "./config/database.js";
-const dbConnection = await connectToDatabase();
+
+// import { initCachedStreams } from "./middleware/initCachedStreams.js";
+
+await connectToDatabase();
+
+// set cached streams
+// await initCachedStreams();
 
 // Middleware to parse incoming JSON data
 app.use(express.json());
@@ -29,5 +31,5 @@ app.use((err, req, res, next) => {
 // Start the server
 const port = process.env.SERVER_PORT;
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`.cyan);
 });
